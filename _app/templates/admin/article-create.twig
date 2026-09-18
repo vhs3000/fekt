@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="cs">
+   <head>
+      <meta charset="UTF-8">
+      <title>Nový článek</title>
+   </head>
+   <body>
+
+      <h1>Nový článek</h1>
+
+      {% if error %}
+         <p>{{ error }}</p>
+      {% endif %}
+
+      <form method="post" action="/admin/articles/create">
+
+         <div>
+            <label for="title">Nadpis</label>
+            <input
+               type="text"
+               id="title"
+               name="title"
+               value="{{ article.title }}"
+               required
+            >
+         </div>
+
+         <div>
+            <label for="content">Obsah</label>
+            <textarea
+                id="content"
+                name="content"
+                rows="10"
+                required
+            >{{ article.content }}</textarea>
+         </div>
+
+         <div>
+            <label for="published_from">Platí od</label>
+            <input
+               type="date"
+               id="published_from"
+               name="published_from"
+               value="{{ article.published_from }}"
+               required
+            >
+         </div>
+
+         <div>
+            <label for="published_to">Platí do</label>
+            <input
+               type="date"
+               id="published_to"
+               name="published_to"
+               value="{{ article.published_to }}"
+            >
+         </div>
+
+         <button type="submit">Uložit</button>
+
+      </form>
+
+      <p>
+         <a href="/admin">Zpět na seznam článků</a>
+      </p>
+
+   </body>
+</html>

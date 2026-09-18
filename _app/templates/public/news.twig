@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html lang="cs">
-   <head>
-      <meta charset="UTF-8">
-      <title>Novinky</title>
-   </head>
-   <body>
+<head>
+    <meta charset="UTF-8">
+    <title>Články</title>
+</head>
+<body>
 
-      <h1>Veřejné novinky</h1>
+    <h1>Články</h1>
 
-      <p>Tady bude výpis novinek.</p>
+    {% for article in articles %}
+        <article>
+            <h2>{{ article.title }}</h2>
 
-      <a href="/admin">Administrace</a>
+            <div>
+                {{ article.content|raw }}
+            </div>
 
-   </body>
+            <p>
+                Platí od: {{ article.published_from }}
+
+                {% if article.published_to %}
+                    <br>
+                    Platí do: {{ article.published_to }}
+                {% endif %}
+            </p>
+        </article>
+    {% endfor %}
+
+</body>
 </html>

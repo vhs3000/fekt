@@ -8,11 +8,13 @@ require_once __DIR__ . '/_app/src/Database.php';
 
 require_once __DIR__ . '/_app/src/PublicController.php';
 require_once __DIR__ . '/_app/src/AdminController.php';
+require_once __DIR__ . '/_app/src/AuthController.php';
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 $publicController = new PublicController();
 $adminController = new AdminController();
+$authController = new AuthController();
 
 switch ($path) {
    case '/':
@@ -24,10 +26,19 @@ switch ($path) {
       break;
 
    case '/admin/login':
-      $adminController->handleLogin();
+      $authController->handleLogin();
       break;
    case '/admin/logout':
-      $adminController->logout();
+      $authController->logout();
+      break;
+   case '/admin/articles/create':
+      $adminController->createArticle();
+      break;
+   case '/admin/articles/edit':
+      $adminController->editArticle();
+      break;
+   case '/admin/articles/delete':
+      $adminController->deleteArticle();
       break;
 
    default:

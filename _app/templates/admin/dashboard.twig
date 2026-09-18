@@ -6,11 +6,45 @@
    </head>
    <body>
 
-      <h1>Administrace</h1>
+      <h1>Administrace článků</h1>
+      <p>
+         <a href="/admin/articles/create">Přidat článek</a>
+      </p>
+      <p>
+         <a href="/admin/logout">Odhlásit</a>
+      </p>
 
-      <p>Tady bude administrace.</p>
+      {% if articles %}
+         {% for article in articles %}
+            <article>
+               <h2>{{ article.title }}</h2>
 
-      <a href="/admin/login">Přihlášení</a>
-      <a href="/admin/logout">Odhlásit</a>
+               <p>
+                  Platí od: {{ article.published_from }}
+
+                  {% if article.published_to %}
+                     <br>
+                     Platí do: {{ article.published_to }}
+                  {% endif %}
+               </p>
+
+               <div>
+                  {{ article.content|raw }}
+               </div>
+               <a href="/admin/articles/edit?id={{ article.id }}">
+                  Upravit
+               </a>
+               <form method="post" action="/admin/articles/delete">
+                  <input type="hidden" name="id" value="{{ article.id }}">
+                  <button type="submit">Smazat</button>
+               </form>
+            </article>
+
+            <hr>
+         {% endfor %}
+      {% else %}
+         <p>Žádné články.</p>
+      {% endif %}
+
    </body>
 </html>
