@@ -1,50 +1,48 @@
-<!DOCTYPE html>
-<html lang="cs">
-   <head>
-      <meta charset="UTF-8">
-      <title>Administrace</title>
-   </head>
-   <body>
+{% extends "base.twig" %}
+{% block title %}
+   Administrace 
+{% endblock %}
 
-      <h1>Administrace článků</h1>
-      <p>
-         <a href="/admin/articles/create">Přidat článek</a>
-      </p>
-      <p>
-         <a href="/admin/logout">Odhlásit</a>
-      </p>
+{% block body %}
 
-      {% if articles %}
-         {% for article in articles %}
-            <article>
-               <h2>{{ article.title }}</h2>
+   <h1>Administrace článků</h1>
+   <p>
+      <a href="/admin/articles/create">Přidat článek</a>
+   </p>
+   <p>
+      <a href="/admin/logout">Odhlásit</a>
+   </p>
 
-               <p>
-                  Platí od: {{ article.published_from }}
+   {% if articles %}
+      {% for article in articles %}
+         <article>
+            <h2>{{ article.title }}</h2>
 
-                  {% if article.published_to %}
-                     <br>
-                     Platí do: {{ article.published_to }}
-                  {% endif %}
-               </p>
+            <p>
+               Platí od: {{ article.published_from }}
 
-               <div>
-                  {{ article.content|raw }}
-               </div>
-               <a href="/admin/articles/edit?id={{ article.id }}">
-                  Upravit
-               </a>
-               <form method="post" action="/admin/articles/delete">
-                  <input type="hidden" name="id" value="{{ article.id }}">
-                  <button type="submit">Smazat</button>
-               </form>
-            </article>
+               {% if article.published_to %}
+                  <br>
+                  Platí do: {{ article.published_to }}
+               {% endif %}
+            </p>
 
-            <hr>
-         {% endfor %}
-      {% else %}
-         <p>Žádné články.</p>
-      {% endif %}
+            <div>
+               {{ article.content|raw }}
+            </div>
+            <a href="/admin/articles/edit?id={{ article.id }}">
+               Upravit
+            </a>
+            <form method="post" action="/admin/articles/delete">
+               <input type="hidden" name="id" value="{{ article.id }}">
+               <button type="submit">Smazat</button>
+            </form>
+         </article>
 
-   </body>
-</html>
+         <hr>
+      {% endfor %}
+   {% else %}
+      <p>Žádné články.</p>
+   {% endif %}
+
+{% endblock %}

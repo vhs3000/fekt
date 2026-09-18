@@ -1,74 +1,72 @@
-<!DOCTYPE html>
-<html lang="cs">
-   <head>
-      <meta charset="UTF-8">
-      <title>Upravit článek</title>
-   </head>
-   <body>
+{% extends "base.twig" %}
+{% block title %}
+   Upravit článek
+{% endblock %}
 
-      <h1>Upravit článek</h1>
+{% block body %}
 
-      {% if error %}
-         <p>{{ error }}</p>
-      {% endif %}
+   <h1>Upravit článek</h1>
 
-      <form method="post" action="/admin/articles/edit">
+   {% if error %}
+      <p>{{ error }}</p>
+   {% endif %}
 
+   <form method="post" action="/admin/articles/edit">
+
+      <input
+         type="hidden"
+         name="id"
+         value="{{ article.id }}"
+      >
+
+      <div>
+         <label for="title">Nadpis</label>
          <input
-            type="hidden"
-            name="id"
-            value="{{ article.id }}"
+            type="text"
+            id="title"
+            name="title"
+            value="{{ article.title }}"
+            required
          >
+      </div>
 
-         <div>
-            <label for="title">Nadpis</label>
-            <input
-               type="text"
-               id="title"
-               name="title"
-               value="{{ article.title }}"
-               required
-            >
-         </div>
-
-         <div>
-            <label for="content">Obsah</label>
-            <textarea
+      <div>
+         <label for="content">Obsah</label>
+         <textarea
                 id="content"
                 name="content"
                 rows="10"
                 required
             >{{ article.content }}</textarea>
-         </div>
+      </div>
 
-         <div>
-            <label for="published_from">Platí od</label>
-            <input
-               type="date"
-               id="published_from"
-               name="published_from"
-               value="{{ article.published_from }}"
-               required
-            >
-         </div>
+      <div>
+         <label for="published_from">Platí od</label>
+         <input
+            type="date"
+            id="published_from"
+            name="published_from"
+            value="{{ article.published_from }}"
+            required
+         >
+      </div>
 
-         <div>
-            <label for="published_to">Platí do</label>
-            <input
-               type="date"
-               id="published_to"
-               name="published_to"
-               value="{{ article.published_to }}"
-            >
-         </div>
+      <div>
+         <label for="published_to">Platí do</label>
+         <input
+            type="date"
+            id="published_to"
+            name="published_to"
+            value="{{ article.published_to }}"
+         >
+      </div>
 
-         <button type="submit">Uložit změny</button>
+      <button type="submit">Uložit změny</button>
 
-      </form>
+   </form>
 
-      <p>
-         <a href="/admin">Zpět na seznam článků</a>
-      </p>
+   <p>
+      <a href="/admin">Zpět na seznam článků</a>
+   </p>
 
-   </body>
-</html>
+{% endblock %}

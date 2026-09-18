@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <title>Články</title>
-</head>
-<body>
+{% extends "base.twig" %}
+{% block title %}
+    Aktuality
+{% endblock %}
 
+
+{% block body %}
     <h1>Články</h1>
 
     {% for article in articles %}
@@ -27,5 +26,5 @@
         </article>
     {% endfor %}
 
-</body>
-</html>
+
+{% endblock %}

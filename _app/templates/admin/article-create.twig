@@ -1,68 +1,82 @@
-<!DOCTYPE html>
-<html lang="cs">
-   <head>
-      <meta charset="UTF-8">
-      <title>Nový článek</title>
-   </head>
-   <body>
+{% extends "base.twig" %}
+{% block title %}
+   Nový článek
+{% endblock %}
+{% block head %}
+   <link rel="stylesheet" href="../../assets/editor/ckeditor5/ckeditor5.css">
+{% endblock %}
 
-      <h1>Nový článek</h1>
 
-      {% if error %}
-         <p>{{ error }}</p>
-      {% endif %}
+{% block body %}
+   <h1>Nový článek</h1>
 
-      <form method="post" action="/admin/articles/create">
+   {% if error %}
+      <p>{{ error }}</p>
+   {% endif %}
 
-         <div>
-            <label for="title">Nadpis</label>
-            <input
-               type="text"
-               id="title"
-               name="title"
-               value="{{ article.title }}"
-               required
-            >
-         </div>
+   <form id="article-form" method="post" action="/admin/articles/create">
 
-         <div>
-            <label for="content">Obsah</label>
-            <textarea
-                id="content"
+      <div>
+         <label for="title">Nadpis</label>
+         <input
+            type="text"
+            id="title"
+            name="title"
+            value="{{ article.title }}"
+            required
+         >
+      </div>
+
+      <div>
+         <label for="content">Obsah</label>
+         <textarea
+                id="editor"
                 name="content"
                 rows="10"
-                required
-            >{{ article.content }}</textarea>
-         </div>
+            ></textarea>
+      </div>
 
-         <div>
-            <label for="published_from">Platí od</label>
-            <input
-               type="date"
-               id="published_from"
-               name="published_from"
-               value="{{ article.published_from }}"
-               required
-            >
-         </div>
+      <div>
+         <label for="published_from">Platí od</label>
+         <input
+            type="date"
+            id="published_from"
+            name="published_from"
+            value="{{ article.published_from }}"
+            required
+         >
+      </div>
 
-         <div>
-            <label for="published_to">Platí do</label>
-            <input
-               type="date"
-               id="published_to"
-               name="published_to"
-               value="{{ article.published_to }}"
-            >
-         </div>
+      <div>
+         <label for="published_to">Platí do</label>
+         <input
+            type="date"
+            id="published_to"
+            name="published_to"
+            value="{{ article.published_to }}"
+         >
+      </div>
 
-         <button type="submit">Uložit</button>
+      <button type="submit">Uložit</button>
 
-      </form>
+   </form>
 
-      <p>
-         <a href="/admin">Zpět na seznam článků</a>
-      </p>
+   <p>
+      <a href="/admin">Zpět na seznam článků</a>
+   </p>
 
-   </body>
-</html>
+{% endblock %}
+
+{% block documentEnd %}
+
+   <script type="importmap">
+		{
+			"imports": {
+				"ckeditor5": "../../assets/editor/ckeditor5/ckeditor5.js",
+				"ckeditor5/": "../../assets/editor/ckeditor5/"
+			}
+		}
+		</script>
+   <script type="module" src="../../js/initArticleEditor.js"></script>
+{% endblock %}
+
