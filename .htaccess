@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# Zákaz přímého přístupu k interní aplikaci
+RewriteRule ^_app/ - [F,L]
+
+# Všechny neexistující soubory a adresáře pošli do index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]
