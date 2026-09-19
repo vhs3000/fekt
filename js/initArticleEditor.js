@@ -39,15 +39,12 @@ const editorConfig = {
   attachTo: document.querySelector("#editor"),
   root: {
     placeholder: "Type or paste your content here!",
-    initialData: "",
   },
   toolbar: {
     items: [
       "undo",
       "redo",
       "|",
-      "fontSize",
-      "fontFamily",
       "fontColor",
       "fontBackgroundColor",
       "|",

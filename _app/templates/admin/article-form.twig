@@ -1,23 +1,36 @@
 {% extends "base.twig" %}
 {% block title %}
-   Upravit článek
+   Nový článek
+{% endblock %}
+{% block head %}
+   <link rel="stylesheet" href="../../assets/editor/ckeditor5/ckeditor5.css">
 {% endblock %}
 
-{% block body %}
 
-   <h1>Upravit článek</h1>
+{% block body %}
+   {% if isNew %}
+      <h1>Nový článek</h1>
+   {% else %}
+      <h1>Upravit článek</h1>
+   {% endif %}
 
    {% if error %}
       <p>{{ error }}</p>
    {% endif %}
 
-   <form method="post" action="/admin/articles/edit">
+   <form
+      id="article-form"
+      method="post"
+      action="{% if isNew %}/admin/articles/create{% else %}/admin/articles/edit{% endif %}"
+   >
 
-      <input
-         type="hidden"
-         name="id"
-         value="{{ article.id }}"
-      >
+      {% if not isNew %}
+         <input
+            type="hidden"
+            name="id"
+            value="{{ article.id }}"
+         >
+      {% endif %}
 
       <div>
          <label for="title">Nadpis</label>
@@ -33,10 +46,9 @@
       <div>
          <label for="content">Obsah</label>
          <textarea
-                id="content"
+                id="editor"
                 name="content"
                 rows="10"
-                required
             >{{ article.content }}</textarea>
       </div>
 
@@ -61,7 +73,13 @@
          >
       </div>
 
-      <button type="submit">Uložit změny</button>
+      <button type="submit">
+         {% if isNew %}
+            Vytvořit
+         {% else %}
+            Uložit změny
+         {% endif %}
+      </button>
 
    </form>
 
@@ -70,3 +88,17 @@
    </p>
 
 {% endblock %}
+
+{% block documentEnd %}
+
+   <script type="importmap">
+		{
+			"imports": {
+				"ckeditor5": "../../assets/editor/ckeditor5/ckeditor5.js",
+				"ckeditor5/": "../../assets/editor/ckeditor5/"
+			}
+		}
+		</script>
+   <script type="module" src="../../js/initArticleEditor.js"></script>
+{% endblock %}
+

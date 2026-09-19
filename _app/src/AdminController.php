@@ -64,8 +64,9 @@ class AdminController
 
       $twig = Twig::create();
 
-      echo $twig->render('admin/article-create.twig', [
+      echo $twig->render('admin/article-form.twig', [
          'error' => $error,
+         'isNew' => true,
          'article' => [
             'title' => $_POST['title'] ?? '',
             'content' => $_POST['content'] ?? '',
@@ -151,9 +152,10 @@ class AdminController
 
       $twig = Twig::create();
 
-      echo $twig->render('admin/article-edit.twig', [
+      echo $twig->render('admin/article-form.twig', [
          'article' => $article,
          'error' => $error,
+         'isNew' => false,
       ]);
    }
 
