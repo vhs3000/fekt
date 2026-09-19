@@ -1,0 +1,61 @@
+{% if pagination.totalPages > 1 %}
+   <nav aria-label="Stránkování" class="mx-auto my-3">
+      <ul class="pagination">
+
+         {% if pagination.currentPage > 1 %}
+            <li class="page-item">
+               <a
+                  href="?page={{ pagination.currentPage - 1 }}"
+                  aria-label="Předchozí stránka"
+                  class="page-link"
+               >
+                  &laquo;
+               </a>
+            </li>
+         {% endif %}
+
+         {% for page in 1..pagination.totalPages %}
+
+            {% if page == pagination.currentPage %}
+               <li class="page-item active">
+                  <span class="page-link">{{ page }}</span>
+               </li>
+
+            {% elseif
+                    page == 1
+                    or page == pagination.totalPages
+                    or page >= pagination.currentPage - 3
+                    and page <= pagination.currentPage + 3
+                %}
+               <li class="page-item">
+                  <a href="?page={{ page }}" class="page-link">
+                     {{ page }}
+                  </a>
+               </li>
+
+            {% elseif
+                    page == pagination.currentPage - 4
+                    or page == pagination.currentPage + 4
+                %}
+               <li class="page-item">
+                  <span class="page-link disabled">…</span>
+               </li>
+            {% endif %}
+
+         {% endfor %}
+
+         {% if pagination.currentPage < pagination.totalPages %}
+            <li class="page-item">
+               <a
+                  href="?page={{ pagination.currentPage + 1 }}"
+                  aria-label="Následující stránka"
+                  class="page-link"
+               >
+                  &raquo;
+               </a>
+            </li>
+         {% endif %}
+
+      </ul>
+   </nav>
+{% endif %}

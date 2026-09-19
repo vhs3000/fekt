@@ -4,43 +4,53 @@
 {% endblock %}
 
 {% block body %}
-
-   <h1>Administrace článků</h1>
-   <p>
-      <a href="/admin/articles/create">Přidat článek</a>
-   </p>
    <p>
       <a href="/admin/logout">Odhlásit</a>
    </p>
+   <h1>Administrace článků</h1>
+   <p>
+      <a href="/admin/articles/create" class="btn btn-primary">Přidat článek</a>
+   </p>
+
 
    {% if articles %}
       {% for article in articles %}
-         <article>
-            <h2>{{ article.title }}</h2>
+         <article class="border p-2 mb-3 row">
+            <div class="col-md-6">
 
-            <p>
-               Platí od: {{ article.published_from }}
+               <h2>{{ article.title }}</h2>
 
-               {% if article.published_to %}
-                  <br>
-                  Platí do: {{ article.published_to }}
-               {% endif %}
-            </p>
 
-            <div>
-               {{ article.content|raw }}
+
+               <div>
+                  {{ article.content|raw }}
+               </div>
             </div>
-            <a href="/admin/articles/edit?id={{ article.id }}">
-               Upravit
-            </a>
-            <form method="post" action="/admin/articles/delete">
-               <input type="hidden" name="id" value="{{ article.id }}">
-               <button type="submit">Smazat</button>
-            </form>
+            <div class="col-md-6">
+               <p>
+                  Platí od: {{ article.published_from }}
+
+                  {% if article.published_to %}
+                     <br>
+                     Platí do: {{ article.published_to }}
+                  {% endif %}
+               </p>
+               <div class="d-flex gap-2">
+
+                  <a href="/admin/articles/edit?id={{ article.id }}" class="btn  btn-outline-primary">
+                     Upravit
+                  </a>
+                  <form method="post" action="/admin/articles/delete">
+                     <input type="hidden" name="id" value="{{ article.id }}">
+                     <button type="submit" class="btn btn-danger">Smazat</button>
+                  </form>
+               </div>
+            </div>
          </article>
 
-         <hr>
+   
       {% endfor %}
+      {% include "pagination.twig" %}
    {% else %}
       <p>Žádné články.</p>
    {% endif %}

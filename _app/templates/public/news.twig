@@ -29,40 +29,9 @@
     {% endfor %}
 
 
-    {% if pagination.totalPages > 1 %}
-        <nav class="pagination" aria-label="Stránkování">
+    {% include "pagination.twig" %}
 
-            {% if pagination.currentPage > 1 %}
-                <a href="?page={{ pagination.currentPage - 1 }}" aria-label="Předchozí stránka">
-                    &laquo;
-                </a>
-            {% endif %}
 
-            {% for page in 1..pagination.totalPages %}
-                {% if page == pagination.currentPage %}
-                    <span class="active">{{ page }}</span>
-                {% elseif
-                page == 1
-                or page == pagination.totalPages
-                or page >= pagination.currentPage - 3
-                and page <= pagination.currentPage + 3
-            %}
-                    <a href="?page={{ page }}">{{ page }}</a>
-                {% elseif
-                page == pagination.currentPage - 4
-                or page == pagination.currentPage + 4
-            %}
-                    <span>…</span>
-                {% endif %}
-            {% endfor %}
 
-            {% if pagination.currentPage < pagination.totalPages %}
-                <a href="?page={{ pagination.currentPage + 1 }}" aria-label="Následující stránka">
-                    &raquo;
-                </a>
-            {% endif %}
-
-        </nav>
-    {% endif %}
 
 {% endblock %}

@@ -1,0 +1,26 @@
+{
+  "name": "fekt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass assets/scss/main.scss assets/main.css",
+    "watch": "sass --watch --silence-deprecation=import assets/scss/main.scss:assets/main.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vhs3000/fekt.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/vhs3000/fekt/issues"
+  },
+  "homepage": "https://github.com/vhs3000/fekt#readme",
+  "devDependencies": {
+    "sass": "^1.104.1"
+  }
+}
