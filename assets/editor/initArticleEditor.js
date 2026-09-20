@@ -38,7 +38,7 @@ const LICENSE_KEY =
 const editorConfig = {
   attachTo: document.querySelector("#editor"),
   root: {
-    placeholder: "Type or paste your content here!",
+    placeholder: "Zde zadejte text aktuality...",
   },
   toolbar: {
     items: [

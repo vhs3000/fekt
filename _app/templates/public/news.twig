@@ -5,32 +5,34 @@
 
 
 {% block body %}
+    <div class="container p-4">
+        <nav class="d-flex justify-content-end">
+            {% if isLoggedIn %}
+                <a href="/admin" class="link-primary">Administrace</a>
+            {% else %}
+                <a href="/admin/login" class="link-primary">Přihlásit</a>
+            {% endif %}
+        </nav>
+        <h1 class="text-center mb-5">Aktuality</h1>
 
-    <a href="/admin">Administrace</a>
-    <h1>Články</h1>
+        {% for article in articles %}
+            <article class="d-block bg-white rounded-3 shadow p-4 mb-4">
+                <div class="text-muted">
+                    {{ article.published_from }}
+                </div>
+                <h2>{{ article.title }}</h2>
 
-    {% for article in articles %}
-        <article>
-            <h2>{{ article.title }}</h2>
-
-            <div>
-                {{ article.content|raw }}
-            </div>
-
-            <p>
-                Platí od: {{ article.published_from }}
-
-                {% if article.published_to %}
-                    <br>
-                    Platí do: {{ article.published_to }}
-                {% endif %}
-            </p>
-        </article>
-    {% endfor %}
+                <div>
+                    {{ article.content|raw }}
+                </div>
 
 
-    {% include "pagination.twig" %}
+            </article>
+        {% endfor %}
 
+
+        {% include "pagination.twig" %}
+    </div>
 
 
 

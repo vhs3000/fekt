@@ -8,84 +8,92 @@
 
 
 {% block body %}
-   {% if isNew %}
-      <h1>Nový článek</h1>
-   {% else %}
-      <h1>Upravit článek</h1>
-   {% endif %}
+   <div class="container bg-white p-4 rounded-2">
 
-   {% if error %}
-      <p>{{ error }}</p>
-   {% endif %}
-
-   <form
-      id="article-form"
-      method="post"
-      action="{% if isNew %}/admin/articles/create{% else %}/admin/articles/edit{% endif %}"
-   >
-
-      {% if not isNew %}
-         <input
-            type="hidden"
-            name="id"
-            value="{{ article.id }}"
-         >
+      <nav class="d-flex justify-content-end">
+         <a href="/admin" class="link-primary">Zpět na seznam článků</a>
+      </nav>
+      {% if isNew %}
+         <h1>Nový článek</h1>
+      {% else %}
+         <h1>Editace článku</h1>
       {% endif %}
 
-      <div>
-         <label for="title">Nadpis</label>
-         <input
-            type="text"
-            id="title"
-            name="title"
-            value="{{ article.title }}"
-            required
-         >
-      </div>
+      {% if error %}
+         <p>{{ error }}</p>
+      {% endif %}
 
-      <div>
-         <label for="content">Obsah</label>
-         <textarea
+      <form
+         id="article-form"
+         method="post"
+         action="{% if isNew %}/admin/articles/create{% else %}/admin/articles/edit{% endif %}"
+      >
+
+         {% if not isNew %}
+            <input
+               type="hidden"
+               name="id"
+               value="{{ article.id }}"
+            >
+         {% endif %}
+
+         <div class="mb-3 container-320 bg-white">
+            <label for="title" class="form-label">Nadpis</label>
+            <input
+               type="text"
+               id="title"
+               name="title"
+               value="{{ article.title }}"
+               class="form-control"
+               required
+            >
+         </div>
+
+         <div class="ck-wrapper mb-3">
+            <label for="content" class="form-label">Obsah</label>
+            <textarea
                 id="editor"
                 name="content"
                 rows="10"
             >{{ article.content }}</textarea>
-      </div>
+         </div>
 
-      <div>
-         <label for="published_from">Platí od</label>
-         <input
-            type="date"
-            id="published_from"
-            name="published_from"
-            value="{{ article.published_from }}"
-            required
-         >
-      </div>
+         <div class="d-md-flex gap-3 mb-3">
+            <label for="published_from" class="form-label my-md-auto">Platnost od</label>
+            <input
+               type="date"
+               id="published_from"
+               name="published_from"
+               class="form-control w-auto mb-3 mb-md-auto"
+               value="{{ article.published_from }}"
+               required
+            >
+ 
+            <label for="published_to" class="form-label my-md-auto">Platnost do</label>
+            <input
+               type="date"
+               id="published_to"
+               name="published_to"
+               class="form-control w-auto"
+               value="{{ article.published_to }}"
+            >
+         </div>
 
-      <div>
-         <label for="published_to">Platí do</label>
-         <input
-            type="date"
-            id="published_to"
-            name="published_to"
-            value="{{ article.published_to }}"
-         >
-      </div>
+         <div class="d-flex gap-3">
+            <button type="submit" class="btn btn-success">
+               {% if isNew %}
+                  Vytvořit
+               {% else %}
+                  Uložit změny
+               {% endif %}
+            </button>
+            <a href="/admin" class="btn btn-outline-dark">Zrušit</a>
+         </div>
 
-      <button type="submit">
-         {% if isNew %}
-            Vytvořit
-         {% else %}
-            Uložit změny
-         {% endif %}
-      </button>
 
-   </form>
+      </form>
 
-   <p>
-      <a href="/admin">Zpět na seznam článků</a>
-   </p>
+   </div>
 
 {% endblock %}
 
@@ -99,6 +107,6 @@
 			}
 		}
 		</script>
-   <script type="module" src="../../js/initArticleEditor.js"></script>
+   <script type="module" src="../../assets/editor/initArticleEditor.js"></script>
 {% endblock %}
 

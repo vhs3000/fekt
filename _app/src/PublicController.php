@@ -46,11 +46,15 @@ class PublicController
 
       $twig = Twig::create();
 
+      $isLoggedIn = Auth::check();
+
       echo $twig->render('public/news.twig', [
          'articles' => $articles,
+         'isLoggedIn' => $isLoggedIn,
          'pagination' => [
             'currentPage' => $page,
             'totalPages' => $totalPages,
+
          ],
       ]);
    }

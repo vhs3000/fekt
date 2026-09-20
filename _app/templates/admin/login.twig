@@ -4,41 +4,49 @@
 {% endblock %}
 
 {% block body %}
+   <div class="container p-4">
+      <nav class="d-flex justify-content-end">
+         <a href="/" class="link-primary">
+            <i class="fa-solid fa-home me-1"></i>Úvod
+         </a>
+
+      </nav>
+
+      <div class="container-320 mx-auto bg-white p-4 rounded-md">
+
+         <h1>Přihlášení</h1>
+         {% if error %}
+            <p>{{ error }}</p>
+         {% endif %}
 
 
-   <div class="container-320 mx-auto">
-      <h1>Přihlášení</h1>
-      {% if error %}
-         <p>{{ error }}</p>
-      {% endif %}
+         <form method="post" action="/admin/login">
 
+            <div class="mx-auto ">
+               <label for="username" class="form-label">Login</label>
+               <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  class="form-control"
+                  required
+               >
+            </div>
 
-      <form method="post" action="/admin/login">
+            <div>
+               <label for="password" class="form-label">Heslo</label>
+               <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  class="form-control"
+                  required
+               >
+            </div>
 
-         <div class="mx-auto ">
-            <label for="username" class="form-label">Login</label>
-            <input
-               type="text"
-               id="username"
-               name="username"
-               class="form-control"
-               required
-            >
-         </div>
+            <button type="submit" class="btn btn-primary my-3">Přihlásit</button>
 
-         <div>
-            <label for="password" class="form-label">Heslo</label>
-            <input
-               type="password"
-               id="password"
-               name="password"
-               class="form-control"
-               required
-            >
-         </div>
-
-         <button type="submit" class="btn btn-primary my-3">Přihlásit</button>
-
-      </form>
+         </form>
+      </div>
    </div>
 {% endblock %}

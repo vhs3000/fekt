@@ -4,55 +4,62 @@
 {% endblock %}
 
 {% block body %}
-   <p>
-      <a href="/admin/logout">Odhlásit</a>
-   </p>
-   <h1>Administrace článků</h1>
-   <p>
-      <a href="/admin/articles/create" class="btn btn-primary">Přidat článek</a>
-   </p>
+   <div class="container bg-white p-4 rounded-2">
+      <nav class="d-flex justify-content-end gap-3 mb-3">
+         <a href="/" class="link-primary" target="_blank">Náhled</a>
+         <a href="/admin/logout" class="link-primary">Odhlásit<i class="fa-solid fa-sign-out ms-1"></i></a>
+      </nav>
+
+      <div class="d-flex gap-4">
+         <h1>Administrace článků</h1>
+         <p>
+            <a href="/admin/articles/create" class="btn btn-primary">
+               <i class="fa-solid fa-file-circle-plus h2"></i>
+               Přidat článek</a>
+         </p>
+      </div>
+
+      {% if articles %}
+         {% for article in articles %}
+            <article class="border px-2 pt-3 pb-4 mb-3 row">
+               <div class="col-md-6 col-lg-8">
+
+                  <h2 class="h4">{{ article.title }}</h2>
 
 
-   {% if articles %}
-      {% for article in articles %}
-         <article class="border p-2 mb-3 row">
-            <div class="col-md-6">
 
-               <h2>{{ article.title }}</h2>
-
-
-
-               <div>
-                  {{ article.content|raw }}
+                  <div class="dashboard-preview">
+                     {{ article.content|raw }}
+                  </div>
                </div>
-            </div>
-            <div class="col-md-6">
-               <p>
-                  Platí od: {{ article.published_from }}
+               <div class="col-md-6 col-lg-4">
+                  <p>
+                     Platí od: {{ article.published_from }}
 
-                  {% if article.published_to %}
-                     <br>
-                     Platí do: {{ article.published_to }}
-                  {% endif %}
-               </p>
-               <div class="d-flex gap-2">
+                     {% if article.published_to %}
+                        <br>
+                        Platí do: {{ article.published_to }}
+                     {% endif %}
+                  </p>
+                  <div class="d-flex gap-2">
 
-                  <a href="/admin/articles/edit?id={{ article.id }}" class="btn  btn-outline-primary">
-                     Upravit
-                  </a>
-                  <form method="post" action="/admin/articles/delete">
-                     <input type="hidden" name="id" value="{{ article.id }}">
-                     <button type="submit" class="btn btn-danger">Smazat</button>
-                  </form>
+                     <a href="/admin/articles/edit?id={{ article.id }}" class="btn  btn-outline-primary">
+                        <i class="fa-solid fa-pen"></i>
+                        Upravit
+                     </a>
+                     <form method="post" action="/admin/articles/delete">
+                        <input type="hidden" name="id" value="{{ article.id }}">
+                        <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash me-1"></i>Smazat</button>
+                     </form>
+                  </div>
                </div>
-            </div>
-         </article>
+            </article>
 
    
-      {% endfor %}
-      {% include "pagination.twig" %}
-   {% else %}
-      <p>Žádné články.</p>
-   {% endif %}
-
+         {% endfor %}
+         {% include "pagination.twig" %}
+      {% else %}
+         <p>Žádné články.</p>
+      {% endif %}
+   </div>
 {% endblock %}

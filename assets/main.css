@@ -216,7 +216,7 @@ hr {
 
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3em;
   font-weight: 500;
   line-height: 1.2;
   color: var(--bs-heading-color);
@@ -232,29 +232,29 @@ h1, .h1 {
 }
 
 h2, .h2 {
-  font-size: calc(1.325rem + 0.9vw);
+  font-size: calc(1.305rem + 0.66vw);
 }
 @media (min-width: 1200px) {
   h2, .h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 }
 
 h3, .h3 {
-  font-size: calc(1.3rem + 0.6vw);
+  font-size: calc(1.285rem + 0.42vw);
 }
 @media (min-width: 1200px) {
   h3, .h3 {
-    font-size: 1.75rem;
+    font-size: 1.6rem;
   }
 }
 
 h4, .h4 {
-  font-size: calc(1.275rem + 0.3vw);
+  font-size: calc(1.265rem + 0.18vw);
 }
 @media (min-width: 1200px) {
   h4, .h4 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 }
 
@@ -6824,15 +6824,15 @@ textarea.form-control-lg {
 }
 
 .fs-2 {
-  font-size: calc(1.325rem + 0.9vw) !important;
+  font-size: calc(1.305rem + 0.66vw) !important;
 }
 
 .fs-3 {
-  font-size: calc(1.3rem + 0.6vw) !important;
+  font-size: calc(1.285rem + 0.42vw) !important;
 }
 
 .fs-4 {
-  font-size: calc(1.275rem + 0.3vw) !important;
+  font-size: calc(1.265rem + 0.18vw) !important;
 }
 
 .fs-5 {
@@ -10386,13 +10386,13 @@ textarea.form-control-lg {
     font-size: 2.5rem !important;
   }
   .fs-2 {
-    font-size: 2rem !important;
+    font-size: 1.8rem !important;
   }
   .fs-3 {
-    font-size: 1.75rem !important;
+    font-size: 1.6rem !important;
   }
   .fs-4 {
-    font-size: 1.5rem !important;
+    font-size: 1.4rem !important;
   }
 }
 @media print {
@@ -10432,12 +10432,37 @@ textarea.form-control-lg {
 }
 body {
   background-color: red !important;
-  border: 2px solid green;
 }
 
 .container-320 {
   max-width: 320px;
   width: 100%;
+}
+
+.ck-content {
+  min-height: 250px;
+}
+
+.ck-wrapper {
+  display: flex;
+  min-height: 325px;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+textarea#editor {
+  display: block;
+  position: relative;
+  width: 100%;
+  color: white;
+  opacity: 0.5;
+}
+
+.dashboard-preview {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
 }
 
 /*# sourceMappingURL=main.css.map */

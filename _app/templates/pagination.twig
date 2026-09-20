@@ -1,11 +1,19 @@
 {% if pagination.totalPages > 1 %}
-   <nav aria-label="Stránkování" class="mx-auto my-3">
-      <ul class="pagination">
 
-         {% if pagination.currentPage > 1 %}
+   {% set currentPage = pagination.currentPage %}
+   {% set totalPages = pagination.totalPages %}
+
+   {# Kolik číselných stránek chceme zobrazovat #}
+   {% set visiblePages = 7 %}
+
+   <nav aria-label="Stránkování" class="mx-auto my-3">
+      <ul class="pagination justify-content-center">
+
+         {# Předchozí #}
+         {% if currentPage > 1 %}
             <li class="page-item">
                <a
-                  href="?page={{ pagination.currentPage - 1 }}"
+                  href="?page={{ currentPage - 1 }}"
                   aria-label="Předchozí stránka"
                   class="page-link"
                >
@@ -14,40 +22,176 @@
             </li>
          {% endif %}
 
-         {% for page in 1..pagination.totalPages %}
 
-            {% if page == pagination.currentPage %}
-               <li class="page-item active">
-                  <span class="page-link">{{ page }}</span>
+         {# Stránky #}
+
+         {% if totalPages <= visiblePages %}
+
+            {# Málo stránek – zobrazíme všechny #}
+            {% for page in 1..totalPages %}
+               <li class="page-item{% if page == currentPage %} active{% endif %}">
+                  {% if page == currentPage %}
+                     <span
+                        class="page-link"
+                        aria-current="page"
+                        aria-label="Stránka {{ page }}, aktuální stránka"
+                     >
+                        {{ page }}
+                     </span>
+                  {% else %}
+                     <a
+                        href="?page={{ page }}"
+                        class="page-link"
+                        aria-label="Stránka {{ page }}"
+                     >
+                        {{ page }}
+                     </a>
+                  {% endif %}
                </li>
+            {% endfor %}
 
-            {% elseif
-                    page == 1
-                    or page == pagination.totalPages
-                    or page >= pagination.currentPage - 3
-                    and page <= pagination.currentPage + 3
-                %}
-               <li class="page-item">
-                  <a href="?page={{ page }}" class="page-link">
-                     {{ page }}
-                  </a>
+
+         {% elseif currentPage <= 4 %}
+
+            {# Začátek #}
+            {% for page in 1..visiblePages %}
+               <li class="page-item{% if page == currentPage %} active{% endif %}">
+                  {% if page == currentPage %}
+                     <span
+                        class="page-link"
+                        aria-current="page"
+                        aria-label="Stránka {{ page }}, aktuální stránka"
+                     >
+                        {{ page }}
+                     </span>
+                  {% else %}
+                     <a
+                        href="?page={{ page }}"
+                        class="page-link"
+                        aria-label="Stránka {{ page }}"
+                     >
+                        {{ page }}
+                     </a>
+                  {% endif %}
                </li>
+            {% endfor %}
 
-            {% elseif
-                    page == pagination.currentPage - 4
-                    or page == pagination.currentPage + 4
-                %}
-               <li class="page-item">
-                  <span class="page-link disabled">…</span>
-               </li>
-            {% endif %}
+            <li class="page-item">
+               <span class="page-link" aria-hidden="true">…</span>
+            </li>
 
-         {% endfor %}
-
-         {% if pagination.currentPage < pagination.totalPages %}
             <li class="page-item">
                <a
-                  href="?page={{ pagination.currentPage + 1 }}"
+                  href="?page={{ totalPages }}"
+                  class="page-link"
+                  aria-label="Stránka {{ totalPages }}"
+               >
+                  {{ totalPages }}
+               </a>
+            </li>
+
+
+         {% elseif currentPage >= totalPages - 3 %}
+
+            {# Konec #}
+            <li class="page-item">
+               <a
+                  href="?page=1"
+                  class="page-link"
+                  aria-label="Stránka 1"
+               >
+                  1
+               </a>
+            </li>
+
+            <li class="page-item">
+               <span class="page-link" aria-hidden="true">…</span>
+            </li>
+
+            {% for page in (totalPages - visiblePages + 1)..totalPages %}
+               <li class="page-item{% if page == currentPage %} active{% endif %}">
+                  {% if page == currentPage %}
+                     <span
+                        class="page-link"
+                        aria-current="page"
+                        aria-label="Stránka {{ page }}, aktuální stránka"
+                     >
+                        {{ page }}
+                     </span>
+                  {% else %}
+                     <a
+                        href="?page={{ page }}"
+                        class="page-link"
+                        aria-label="Stránka {{ page }}"
+                     >
+                        {{ page }}
+                     </a>
+                  {% endif %}
+               </li>
+            {% endfor %}
+
+
+         {% else %}
+
+            {# Uprostřed #}
+            <li class="page-item">
+               <a
+                  href="?page=1"
+                  class="page-link"
+                  aria-label="Stránka 1"
+               >
+                  1
+               </a>
+            </li>
+
+            <li class="page-item">
+               <span class="page-link" aria-hidden="true">…</span>
+            </li>
+
+            {% for page in (currentPage - 3)..(currentPage + 3) %}
+               <li class="page-item{% if page == currentPage %} active{% endif %}">
+                  {% if page == currentPage %}
+                     <span
+                        class="page-link"
+                        aria-current="page"
+                        aria-label="Stránka {{ page }}, aktuální stránka"
+                     >
+                        {{ page }}
+                     </span>
+                  {% else %}
+                     <a
+                        href="?page={{ page }}"
+                        class="page-link"
+                        aria-label="Stránka {{ page }}"
+                     >
+                        {{ page }}
+                     </a>
+                  {% endif %}
+               </li>
+            {% endfor %}
+
+            <li class="page-item">
+               <span class="page-link" aria-hidden="true">…</span>
+            </li>
+
+            <li class="page-item">
+               <a
+                  href="?page={{ totalPages }}"
+                  class="page-link"
+                  aria-label="Stránka {{ totalPages }}"
+               >
+                  {{ totalPages }}
+               </a>
+            </li>
+
+         {% endif %}
+
+
+         {# Následující #}
+         {% if currentPage < totalPages %}
+            <li class="page-item">
+               <a
+                  href="?page={{ currentPage + 1 }}"
                   aria-label="Následující stránka"
                   class="page-link"
                >
@@ -58,4 +202,5 @@
 
       </ul>
    </nav>
+
 {% endif %}

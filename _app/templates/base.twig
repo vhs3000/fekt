@@ -7,14 +7,16 @@
       <title>{% block title %}Moje aplikace{% endblock %}</title>
 
       <link rel="stylesheet" href="/assets/main.css">
+      <link rel="stylesheet" href="/assets/font-awesome/fontawesome.min.css">
+      <link rel="stylesheet" href="/assets/font-awesome/solid.css">
 
       {% block head %}{% endblock %}
    </head>
 
-   <body class="bg-light">
-      <div class="container bg-white p-3">
-         {% block body %}{% endblock %}
-      </div>
+   <body class="bg-light pt-4">
+      
+      {% block body %}{% endblock %}
+   
 
    </body>
    {% block documentEnd %}{% endblock %} 
