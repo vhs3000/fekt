@@ -46,6 +46,7 @@ class AdminController
 
       echo $twig->render('admin/dashboard.twig', [
          'articles' => $articles,
+         'csrfToken' => Auth::csrfToken(),
          'pagination' => [
             'currentPage' => $page,
             'totalPages' => $totalPages,
@@ -55,14 +56,13 @@ class AdminController
 
    public function createArticle(): void
    {
-      if (!Auth::check()) {
-         header('Location: /admin/login');
-         exit;
-      }
+      $this->requireAuth();
 
       $error = null;
 
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+         $this->requierCsrfValidation();
 
          $title = trim($_POST['title'] ?? '');
          $content = $_POST['content'] ?? '';
@@ -98,6 +98,7 @@ class AdminController
       echo $twig->render('admin/article-form.twig', [
          'error' => $error,
          'isNew' => true,
+         'csrfToken' => Auth::csrfToken(),
          'article' => [
             'title' => $_POST['title'] ?? '',
             'content' => $_POST['content'] ?? '',
@@ -111,6 +112,7 @@ class AdminController
    {
       $this->requireAuth();
 
+
       $id = (int) ($_GET['id'] ?? $_POST['id'] ?? 0);
 
       if ($id <= 0) {
@@ -122,7 +124,7 @@ class AdminController
       $db = Database::connect();
 
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+         $this->requierCsrfValidation();
          $title = trim($_POST['title'] ?? '');
          $content = $_POST['content'] ?? '';
          $publishedFrom = $_POST['published_from'] ?? '';
@@ -187,12 +189,14 @@ class AdminController
          'article' => $article,
          'error' => $error,
          'isNew' => false,
+         'csrfToken' => Auth::csrfToken(),
       ]);
    }
 
    public function deleteArticle(): void
    {
       $this->requireAuth();
+      $this->requierCsrfValidation();
 
       if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
          http_response_code(405);
@@ -227,6 +231,14 @@ class AdminController
    {
       if (!Auth::check()) {
          header('Location: /admin/login');
+         exit;
+      }
+   }
+   private function requierCsrfValidation(): void
+   {
+      if (!Auth::validateCsrf($_POST['csrf_token'] ?? null)) {
+         http_response_code(403);
+         echo '403 - Neplatný CSRF token';
          exit;
       }
    }

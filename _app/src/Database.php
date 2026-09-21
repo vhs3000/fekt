@@ -4,6 +4,8 @@ class Database
 {
    public static function connect(): PDO
    {
+
+      // toto by pri realnem pouziti samozrejme melo byt nacitano z .env souboru
       $host = 'localhost';
       $database = 'fekt';
       $username = 'root';

@@ -33,4 +33,24 @@ class Auth
 
       return isset($_SESSION['user_id']);
    }
+
+   public static function csrfToken(): string
+   {
+      self::start();
+
+      if (empty($_SESSION['csrf_token'])) {
+         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+      }
+
+      return $_SESSION['csrf_token'];
+   }
+
+   public static function validateCsrf(?string $token): bool
+   {
+      self::start();
+
+      return isset($_SESSION['csrf_token'])
+         && is_string($token)
+         && hash_equals($_SESSION['csrf_token'], $token);
+   }
 }

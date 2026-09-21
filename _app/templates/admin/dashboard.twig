@@ -49,7 +49,19 @@
                      </a>
                      <form method="post" action="/admin/articles/delete">
                         <input type="hidden" name="id" value="{{ article.id }}">
-                        <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash me-1"></i>Smazat</button>
+                        <input type="hidden" name="csrf_token" value="{{ csrfToken }}">
+                        {# <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash me-1"></i>Smazat</button> #}
+                        
+                        <button
+                           type="button"
+                           class="btn btn-danger"
+                           data-bs-toggle="modal"
+                           data-bs-target="#deleteModal"
+                           data-article-title="{{ article.title }}"
+                        >
+                           <i class="fa-solid fa-trash me-1"></i>
+                           Smazat
+                        </button>
                      </form>
                   </div>
                </div>
@@ -62,4 +74,84 @@
          <p>Žádné články.</p>
       {% endif %}
    </div>
+
+   <div
+      class="modal fade"
+      id="deleteModal"
+      tabindex="-1"
+      aria-labelledby="deleteModalLabel"
+      aria-hidden="true"
+   >
+      <div class="modal-dialog">
+         <div class="modal-content">
+
+            <div class="modal-header">
+               <h2 class="modal-title fs-5" id="deleteModalLabel">
+                  Smazat článek?
+               </h2>
+
+               <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Zavřít"
+               ></button>
+            </div>
+
+            <div class="modal-body">
+               Opravdu chcete smazat článek
+               <strong id="deleteArticleTitle"></strong>?
+            </div>
+
+            <div class="modal-footer">
+               <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+               >
+                  Zrušit
+               </button>
+
+               <button
+                  type="button"
+                  class="btn btn-danger"
+                  id="confirmDelete"
+               >
+                  <i class="fa-solid fa-trash me-1"></i>
+                  Smazat
+               </button>
+            </div>
+
+         </div>
+      </div>
+   </div>
+{% endblock %}
+
+{% block documentEnd %}
+
+   <script>
+      const deleteModal = document.querySelector("#deleteModal");
+
+      if (deleteModal) {
+         let formToSubmit = null;
+
+         deleteModal.addEventListener("show.bs.modal", (event) => {
+            const button = event.relatedTarget;
+
+            formToSubmit = button.closest("form");
+
+            const articleTitle = button.dataset.articleTitle;
+
+            document.querySelector("#deleteArticleTitle").textContent = articleTitle;
+         });
+
+         document.querySelector("#confirmDelete").addEventListener("click", () => {
+            if (formToSubmit) {
+               formToSubmit.submit();
+            }
+         });
+      }
+   </script>
+
+   <script src="../../assets/js-bootstrap-5-3/bootstrap.min.js"></script>
 {% endblock %}

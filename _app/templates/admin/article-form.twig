@@ -37,6 +37,12 @@
             >
          {% endif %}
 
+         <input
+            type="hidden"
+            name="csrf_token"
+            value="{{ csrfToken }}"
+         >
+
          <div class="mb-3 container-320 bg-white">
             <label for="title" class="form-label">Nadpis</label>
             <input
