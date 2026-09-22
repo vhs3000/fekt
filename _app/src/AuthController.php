@@ -4,6 +4,10 @@ class AuthController
 {
    public function handleLogin(): void
    {
+      // Brute-force ochrana loginu není v zahrnuta. Robustní rate limiting podle IP adresy 
+      // nebo uživatelského účtu by vyžadoval další server-side úložiště pro evidenci neúspěšných pokusů 
+      // (např. rozšíření databázového schématu nebo Redis), což je mimo rozsah tohoto zadání.
+
       $error = null;
 
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {

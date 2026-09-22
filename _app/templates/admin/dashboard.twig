@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-   <div class="container bg-white p-4 rounded-2">
+   <div class="container bg-white p-4 rounded-2 pb-5 mb-5">
       <nav class="d-flex justify-content-end gap-3 mb-3">
          <a href="/" class="link-primary" target="_blank">Náhled</a>
          <a href="/admin/logout" class="link-primary">Odhlásit<i class="fa-solid fa-sign-out ms-1"></i></a>
@@ -106,7 +106,7 @@
             <div class="modal-footer">
                <button
                   type="button"
-                  class="btn btn-secondary"
+                  class="btn btn-outline-secondary"
                   data-bs-dismiss="modal"
                >
                   Zrušit
@@ -125,6 +125,8 @@
          </div>
       </div>
    </div>
+
+   {% include 'admin/dev-tools.twig' %}
 {% endblock %}
 
 {% block documentEnd %}

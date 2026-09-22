@@ -62,7 +62,7 @@ class AdminController
 
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-         $this->requierCsrfValidation();
+         $this->requireCsrfValidation();
 
          $title = trim($_POST['title'] ?? '');
          $content = $_POST['content'] ?? '';
@@ -72,6 +72,8 @@ class AdminController
          if ($title === '' || $content === '' || $publishedFrom === '') {
             $error = 'Vyplňte všechna povinná pole.';
          } else {
+            $content = HtmlSanitizer::clean($content);
+
             $db = Database::connect();
 
             $stmt = $db->prepare(
@@ -124,7 +126,7 @@ class AdminController
       $db = Database::connect();
 
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-         $this->requierCsrfValidation();
+         $this->requireCsrfValidation();
          $title = trim($_POST['title'] ?? '');
          $content = $_POST['content'] ?? '';
          $publishedFrom = $_POST['published_from'] ?? '';
@@ -141,6 +143,8 @@ class AdminController
                'published_to' => $publishedTo,
             ];
          } else {
+
+            $content = HtmlSanitizer::clean($content);
             $stmt = $db->prepare(
                'UPDATE articles
                  SET title = :title,
@@ -196,7 +200,7 @@ class AdminController
    public function deleteArticle(): void
    {
       $this->requireAuth();
-      $this->requierCsrfValidation();
+      $this->requireCsrfValidation();
 
       if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
          http_response_code(405);
@@ -234,7 +238,7 @@ class AdminController
          exit;
       }
    }
-   private function requierCsrfValidation(): void
+   private function requireCsrfValidation(): void
    {
       if (!Auth::validateCsrf($_POST['csrf_token'] ?? null)) {
          http_response_code(403);

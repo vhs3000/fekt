@@ -5,6 +5,13 @@ class Auth
    public static function start(): void
    {
       if (session_status() === PHP_SESSION_NONE) {
+
+         session_set_cookie_params([
+            'httponly' => true, // JavaScript se nedostane k session cookie přes document.cookie. Ochrana proti krádeži session přes XSS.
+            'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
+            'samesite' => 'Lax', // omezuje posílání session cookie při cross-site požadavcích
+         ]);
+
          session_start();
       }
    }

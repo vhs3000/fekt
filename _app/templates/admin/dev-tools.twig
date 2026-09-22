@@ -1,0 +1,33 @@
+<div class="dev-tools">
+   <div class="h-6">Testovací nástroje</div>
+   <div class="d-flex gap-2">
+
+
+      <form method="post" action="/admin/dev-tools/generate-articles">
+         <input
+            type="hidden"
+            name="csrf_token"
+            value="{{ csrfToken }}"
+         >
+         <button
+            type="submit"
+            class="btn btn-primary btn-sm"
+         >
+            <i class="fa-solid fa-copy"></i>
+            Vygenerovat 100 náhodných článků
+         </button>
+      </form>
+
+      <form method="post" action="/admin/dev-tools/delete-articles">
+         <input
+            type="hidden"
+            name="csrf_token"
+            value="{{ csrfToken }}"
+         >
+         <button type="submit" class="btn btn-danger btn-sm">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            Smazat všechny články
+         </button>
+      </form>
+   </div>
+</div>

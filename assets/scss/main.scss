@@ -42,3 +42,16 @@ textarea#editor {
    -webkit-box-orient: vertical;
    -webkit-line-clamp: 6;
 }
+
+.dev-tools {
+   position: fixed;
+   bottom: 1rem;
+   left: 0;
+   background-color: $gray-300;
+   padding: 0.7rem;
+   border-radius: 1rem;
+   border-bottom-left-radius: 0;
+   border-top-left-radius: 0;
+   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+   z-index: 100;
+}
