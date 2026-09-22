@@ -4,9 +4,11 @@ class AuthController
 {
    public function handleLogin(): void
    {
-      // Brute-force ochrana loginu není v zahrnuta. Robustní rate limiting podle IP adresy 
+      // Brute-force ochrana loginu není zahrnuta. Robustní rate limiting podle IP adresy 
       // nebo uživatelského účtu by vyžadoval další server-side úložiště pro evidenci neúspěšných pokusů 
       // (např. rozšíření databázového schématu nebo Redis), což je mimo rozsah tohoto zadání.
+
+      // Stejně tak scenář CSRF útoku je zde hodně hypotetický, proto jsem zde CSRF ochranu neřešil... 
 
       $error = null;
 

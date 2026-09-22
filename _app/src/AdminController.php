@@ -71,6 +71,16 @@ class AdminController
 
          if ($title === '' || $content === '' || $publishedFrom === '') {
             $error = 'Vyplňte všechna povinná pole.';
+         } elseif (strlen($title) > 255) {
+            $error = 'Název je příliš dlouhý (max 255 znaků).';
+         } elseif (strlen($content) > 65535) {
+            $error = 'Obsah je příliš dlouhý.';
+         } elseif (!$this->isValidDate($publishedFrom)) {
+            $error = 'Neplatné datum „Od“.';
+         } elseif ($publishedTo !== '' && !$this->isValidDate($publishedTo)) {
+            $error = 'Neplatné datum „Do“.';
+         } elseif ($publishedTo !== '' && $publishedTo < $publishedFrom) {
+            $error = 'Datum „Do“ nesmí být dříve než datum „Od“.';
          } else {
             $content = HtmlSanitizer::clean($content);
 
@@ -131,10 +141,23 @@ class AdminController
          $content = $_POST['content'] ?? '';
          $publishedFrom = $_POST['published_from'] ?? '';
          $publishedTo = $_POST['published_to'] ?? null;
+         $error = null;
 
          if ($title === '' || $content === '' || $publishedFrom === '') {
             $error = 'Vyplňte všechna povinná pole.';
+         } elseif (strlen($title) > 255) {
+            $error = 'Název je příliš dlouhý (max 255 znaků).';
+         } elseif (strlen($content) > 65535) {
+            $error = 'Obsah je příliš dlouhý.';
+         } elseif (!$this->isValidDate($publishedFrom)) {
+            $error = 'Neplatné datum „Od“.';
+         } elseif ($publishedTo !== '' && !$this->isValidDate($publishedTo)) {
+            $error = 'Neplatné datum „Do“.';
+         } elseif ($publishedTo !== '' && $publishedTo < $publishedFrom) {
+            $error = 'Datum „Do“ nesmí být dříve než datum „Od“.';
+         }
 
+         if ($error !== null) {
             $article = [
                'id' => $id,
                'title' => $title,
@@ -245,5 +268,13 @@ class AdminController
          echo '403 - Neplatný CSRF token';
          exit;
       }
+   }
+
+   private function isValidDate(string $date): bool
+   {
+      $parsedDate = DateTime::createFromFormat('Y-m-d', $date);
+
+      return $parsedDate !== false
+         && $parsedDate->format('Y-m-d') === $date;
    }
 }

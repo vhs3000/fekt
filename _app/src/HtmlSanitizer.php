@@ -8,7 +8,7 @@ class HtmlSanitizer
       $config = HTMLPurifier_Config::createDefault();
 
       $config->set('HTML.Allowed', '
-         p,
+         p,span[style],div,mark[class],
          h2,h3,h4,
          strong,em,i,u,b,strike,del,s,
          ul,ol,li,
@@ -16,6 +16,11 @@ class HtmlSanitizer
          a[href|target|rel],
          br
       ');
+
+      $config->set('CSS.AllowedProperties', [
+         'color',
+         'background-color',
+      ]);
 
       $purifier = new HTMLPurifier($config);
 
