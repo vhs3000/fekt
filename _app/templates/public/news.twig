@@ -14,23 +14,25 @@
             {% endif %}
         </nav>
         <h1 class="text-center mb-5">Aktuality</h1>
+        {% if articles %}
+         
+            {% for article in articles %}
+                <article class="public-article d-block bg-white rounded-3 shadow p-4 mb-4">
+                    <div class="text-muted">
+                        {{ article.published_from }}
+                    </div>
+                    <h2>{{ article.title }}</h2>
 
-        {% for article in articles %}
-            <article class="d-block bg-white rounded-3 shadow p-4 mb-4">
-                <div class="text-muted">
-                    {{ article.published_from }}
-                </div>
-                <h2>{{ article.title }}</h2>
-
-                <div>
-                    {{ article.content|raw }}
-                </div>
-
-
-            </article>
-        {% endfor %}
+                    <div>
+                        {{ article.content|raw }}
+                    </div>
 
 
+                </article>
+            {% endfor %}
+        {% else %}
+            <div class="text-center w-full">Omlouváme se, aktuality momentálně nejsou k dispozici</div>
+        {% endif %}
         {% include "pagination.twig" %}
     </div>
 

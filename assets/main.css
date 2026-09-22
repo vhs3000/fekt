@@ -9173,4 +9173,14 @@ textarea#editor {
   z-index: 100;
 }
 
+.dashboard-preview p,
+.public-article p {
+  margin-bottom: 0.2em;
+}
+
+.dashboard-preview ul,
+.public-article ul {
+  margin-top: 0.5em;
+}
+
 /*# sourceMappingURL=main.css.map */

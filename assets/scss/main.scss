@@ -55,3 +55,13 @@ textarea#editor {
    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
    z-index: 100;
 }
+
+.dashboard-preview p,
+.public-article p {
+   margin-bottom: 0.2em;
+}
+
+.dashboard-preview ul,
+.public-article ul {
+   margin-top: 0.5em;
+}

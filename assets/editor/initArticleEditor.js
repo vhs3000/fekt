@@ -28,6 +28,7 @@ import {
   RemoveFormat,
   Highlight,
   GeneralHtmlSupport,
+  Link,
 } from "ckeditor5";
 
 import translations from "ckeditor5/translations/cs.js";
@@ -54,7 +55,7 @@ const editorConfig = {
       "strikethrough",
       "subscript",
       "superscript",
-      "code",
+      "link",
       "removeFormat",
       "|",
       "highlight",
@@ -70,7 +71,6 @@ const editorConfig = {
     Autoformat,
     Autosave,
     Bold,
-    Code,
     Essentials,
     FontBackgroundColor,
     FontColor,
@@ -89,6 +89,7 @@ const editorConfig = {
     TextTransformation,
     TodoList,
     Underline,
+    Link,
   ],
   licenseKey: LICENSE_KEY,
   autosave: {
