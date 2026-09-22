@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "sass assets/scss/main.scss assets/main.css",
+    "sass": "sass --style=compressed assets/scss/main.scss assets/main.css",
     "watch": "sass --watch --silence-deprecation=import assets/scss/main.scss:assets/main.css"
   },
   "repository": {
